@@ -1,294 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nota de Venta - Vidrio y Aluminio Aztek</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --main-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      --glass-bg: rgba(255, 255, 255, 0.15);
-      --glass-border: rgba(255, 255, 255, 0.3);
-      --accent: #00d2ff;
-      --accent-dark: #3a7bd5;
-      --danger: #e74c3c;
-      --danger-dark: #c0392b;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Amor ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:radial-gradient(circle at top,#ff758c,#ff7eb3,#fad0c4);display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
+.book{width:370px;height:530px;position:relative;perspective:4000px}
+.page{width:100%;height:100%;position:absolute;background:linear-gradient(160deg,#fff,#ffe0e9);border-radius:20px;box-shadow:0 25px 60px rgba(0,0,0,.35);transform-origin:left;transform-style:preserve-3d;transform:rotateY(0);transition:transform .9s cubic-bezier(.65,.05,.36,1);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:25px;box-sizing:border-box;cursor:pointer;backface-visibility:hidden}
+.page.flipped{transform:rotateY(-180deg)}
+.page:nth-child(1){z-index:10}.page:nth-child(2){z-index:9}.page:nth-child(3){z-index:8}.page:nth-child(4){z-index:7}.page:nth-child(5){z-index:6}.page:nth-child(6){z-index:5}.page:nth-child(7){z-index:4}.page:nth-child(8){z-index:3}.page:nth-child(9){z-index:2}.page:nth-child(10){z-index:1}
+.page img{width:90%;height:220px;object-fit:cover;border-radius:15px;margin-bottom:15px;box-shadow:0 10px 25px rgba(0,0,0,.3)}
+.page h1{font-family:'Great Vibes',cursive;color:#ff2e63;font-size:32px}
+.page p{text-align:center;font-size:15px}
+.reset-btn{position:absolute;bottom:-85px;padding:12px 25px;border:none;border-radius:25px;background:linear-gradient(45deg,#ff2e63,#ff6f91);color:#fff;cursor:pointer}
 
-    * {
-      box-sizing: border-box;
-    }
+/* corazones */
+.hearts{position:absolute;width:100%;height:100%;overflow:hidden;pointer-events:none}
+.heart{position:absolute;color:rgba(255,0,90,.6);animation:float 6s infinite linear}
+@keyframes float{0%{transform:translateY(100vh) scale(.5) rotate(0)}100%{transform:translateY(-10vh) scale(1.2) rotate(360deg)}}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--main-bg);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      padding: 50px 20px;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .container {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 2px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 40px 30px;
-      max-width: 950px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-
-    h1 {
-      text-align: center;
-      color: #fff;
-      font-size: 2.8rem;
-      margin-bottom: 30px;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    }
-
-    form > label {
-      display: block;
-      margin: 20px 0 8px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      margin-bottom: 10px;
-      transition: all 0.3s;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--accent);
-    }
-
-    .producto {
-      position: relative;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--glass-border);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 25px 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .producto label {
-      margin-top: 10px;
-    }
-
-    .eliminar-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: var(--danger);
-      border: none;
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background 0.3s;
-    }
-
-    .eliminar-btn:hover {
-      background: var(--danger-dark);
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    button {
-      background: var(--accent);
-      border: none;
-      padding: 14px 28px;
-      border-radius: 50px;
-      font-size: 1rem;
-      color: #fff;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    button:hover {
-      background: var(--accent-dark);
-      transform: translateY(-2px);
-    }
-
-    .footer {
-      text-align: center;
-      color: #eee;
-      margin-top: 40px;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 650px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .container {
-        padding: 30px 20px;
-      }
-
-      .button-group {
-        flex-direction: column;
-      }
-
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+/* pantalla final */
+.final-screen{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,.9);opacity:0;pointer-events:none;transition:opacity .6s}
+.final-screen.show{opacity:1;pointer-events:auto}
+.final-text{font-family:'Great Vibes',cursive;font-size:40px;color:#ff2e63;text-align:center;animation:pop 1s ease}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Nota de Venta</h1>
-    <form id="ventaForm">
-      <label for="cliente">Nombre del Cliente</label>
-      <input type="text" id="cliente" name="cliente" placeholder="Ej. Juan Pérez" required />
 
-      <div id="productosContainer"></div>
+<div class="hearts" id="hearts"></div>
 
-      <div class="button-group">
-        <button type="button" onclick="agregarProducto()">+ Agregar Producto</button>
-        <button type="submit">?? Generar PDF</button>
-      </div>
-    </form>
-    <div class="footer">© 2025 Vidrio y Aluminio Aztek — Todos los derechos reservados</div>
-  </div>
+<div class="book" id="book">
+<div class="page"><img src="fotos/foto1.jpg"><h1>Para mi amor ❤️</h1><p>Un pequeño libro para ti</p></div>
+<div class="page"><img src="fotos/foto2.jpg"><h1>Carta 1</h1><p>Quiero que seas tu mi compañera de aventuras para toda la vida.</p></div>
+<div class="page"><img src="fotos/foto3.jpg"><h1>Carta 2</h1><p>Eres la niña de mis ojos y la niña con la que quiero pasar el resto de mi vida.</p></div>
+<div class="page"><img src="fotos/foto4.jpg"><h1>Carta 3</h1><p>Vamos a formar algo mucho mas bonito de lo que ya tenemos, quiero que seas la madre de mis hijos y si me quieres dejar minimo dejame antes a una mini tu.</p></div>
+<div class="page"><img src="fotos/foto5.jpg"><h1>Carta 4</h1><p>No quiero intentar nada con alguien mas, solo quiero que seas tu para toda la vida, si peleamos o no nos entendemos mi unica solucion es arreglar todo contigo por que yo solo quiero estar contigo.</p></div>
+<div class="page"><img src="fotos/foto6.jpg"><h1>Carta 5</h1><p>Formemos miles de recuerdos mas, contigo cada salida es un recuerdo en mi vida, me encanta la historia de amor que estamos formando, ya tenemos varias historias para nuestros hijos y nietos.</p></div>
+<div class="page"><img src="fotos/foto7.jpg"><h1>Carta 6</h1><p>no sabes lo feliz que me haces mi niña, tu llegaste a darle color a mi vida, hiciste que un niño con edad de un adolecente se sintiera muy querido, ya no estoy solito.</p></div>
+<div class="page"><img src="fotos/foto8.jpg"><h1>Carta 7</h1><p>Eres mi lugar seguro, contigo todo es muy bonito, siento muy bonito el tener a la niña de mis sueños conmigo, no quiero que te vallas nunca.</p></div>
+<div class="page"><img src="fotos/foto9.jpg"><h1>Carta 8</h1><p>No cambiaría nada de ti, me encantas demasiado, para mis ojos eres la niña mas perfecta y hermosa del universo, te amo infinitamente de aqui al infinito y mas alla a pasitos de tortuga.</p></div>
+<div class="page"><img src="fotos/foto10.jpg"><h1>Carta 9</h1><p>Te amo más cada día y jamas dejare de sentir lo que siento ahora, mi amor por ti cada dia crece mas y mas, te amo mi niña.</p></div>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    const { jsPDF } = window.jspdf;
-    const form = document.getElementById('ventaForm');
-    const productosContainer = document.getElementById('productosContainer');
-    let contadorProductos = 0;
+<div class="final-screen" id="finalScreen">
+  <div class="final-text">Eres lo mejor que me ha pasado, eres la niña de mis sueños❤️</div>
+</div>
 
-    function agregarProducto() {
-      contadorProductos++;
-      const div = document.createElement('div');
-      div.className = 'producto';
-      div.id = `producto_${contadorProductos}`;
+<button class="reset-btn" onclick="resetBook()">Reiniciar 💞</button>
 
-      div.innerHTML = `
-        <button type="button" class="eliminar-btn" onclick="eliminarProducto('${div.id}')">?</button>
-        <label>Producto</label>
-        <input type="text" name="producto_${contadorProductos}" placeholder="Nombre del producto" required />
+<script>
+const pages=document.querySelectorAll('.page');
+let current=0;let isAnimating=false;
 
-        <label>Cantidad</label>
-        <input type="number" name="cantidad_${contadorProductos}" min="1" required />
-
-        <label>Precio Unitario</label>
-        <input type="number" name="precio_${contadorProductos}" min="0" step="0.01" required />
-
-        <label>Observaciones</label>
-        <textarea name="observaciones_${contadorProductos}" rows="2" placeholder="Opcional"></textarea>
-      `;
-      productosContainer.appendChild(div);
-    }
-
-    function eliminarProducto(id) {
-      const productoDiv = document.getElementById(id);
-      if (productoDiv) {
-        productosContainer.removeChild(productoDiv);
-      }
-    }
-
-    agregarProducto();
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const doc = new jsPDF();
-      const cliente = form.cliente.value.trim();
-      const pageWidth = doc.internal.pageSize.getWidth();
-      let y = 25;
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(20);
-      doc.text("Vidrio y Aluminio Aztek", pageWidth / 2, y, { align: 'center' });
-
-      y += 12;
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "normal");
-      doc.text(`Cliente: ${cliente}`, 20, y);
-
-      y += 10;
-      doc.line(15, y, pageWidth - 15, y);
-      y += 10;
-
-      doc.setFontSize(11);
-      doc.setFont(undefined, 'bold');
-      doc.text("Producto", 20, y);
-      doc.text("Cant.", 90, y);
-      doc.text("Precio", 115, y);
-      doc.text("Subtotal", 150, y);
-
-      y += 6;
-      doc.setFont(undefined, 'normal');
-      let total = 0;
-
-      const productos = productosContainer.querySelectorAll('.producto');
-      productos.forEach(prod => {
-        const producto = prod.querySelector(`input[name^="producto_"]`).value || '';
-        const cantidad = parseInt(prod.querySelector(`input[name^="cantidad_"]`).value) || 0;
-        const precio = parseFloat(prod.querySelector(`input[name^="precio_"]`).value) || 0;
-        const observaciones = prod.querySelector(`textarea[name^="observaciones_"]`).value || '';
-        const subtotal = cantidad * precio;
-        total += subtotal;
-
-        if (y > 260) {
-          doc.addPage();
-          y = 25;
+pages.forEach((page,i)=>{
+  page.addEventListener('click',()=>{
+    if(i===current&&!isAnimating){
+      isAnimating=true;page.classList.add('flipped');
+      setTimeout(()=>{
+        page.style.zIndex=0;current++;isAnimating=false;
+        if(current===pages.length){
+          document.getElementById('finalScreen').classList.add('show');
         }
+      },900);
+    }
+  });
+});
 
-        doc.setFontSize(10);
-        doc.text(producto, 20, y);
-        doc.text(String(cantidad), 90, y);
-        doc.text(`$${precio.toFixed(2)}`, 115, y);
-        doc.text(`$${subtotal.toFixed(2)}`, 150, y);
-        y += 7;
+function resetBook(){
+  pages.forEach((p,i)=>{p.classList.remove('flipped');p.style.zIndex=pages.length-i});
+  current=0;isAnimating=false;
+  document.getElementById('finalScreen').classList.remove('show');
+}
 
-        if (observaciones) {
-          doc.setFontSize(9);
-          const obsLines = doc.splitTextToSize(`Notas: ${observaciones}`, pageWidth - 40);
-          doc.text(obsLines, 25, y);
-          y += obsLines.length * 5;
-        }
-      });
+function createHearts(){
+  const c=document.getElementById('hearts');
+  for(let i=0;i<30;i++){
+    let h=document.createElement('div');
+    h.className='heart';h.innerHTML='❤';
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(Math.random()*20+10)+'px';
+    h.style.animationDuration=(Math.random()*5+3)+'s';
+    c.appendChild(h);
+  }
+}
+createHearts();
+</script>
 
-      y += 15;
-      doc.setFontSize(14);
-      doc.setFont(undefined, 'bold');
-      doc.text(`TOTAL: $${total.toFixed(2)}`, pageWidth - 70, y);
-
-      y += 15;
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "italic");
-      doc.text("Gracias por su preferencia.", 20, y);
-
-      doc.save(`Nota_${cliente.replace(/\s/g, '_')}.pdf`);
-    });
-  </script>
 </body>
 </html>
